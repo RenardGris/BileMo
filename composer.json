@@ -20,7 +20,8 @@
         "symfony/framework-bundle": "5.2.*",
         "symfony/proxy-manager-bridge": "5.2.*",
         "symfony/validator": "5.2.*",
-        "symfony/yaml": "5.2.*"
+        "symfony/yaml": "5.2.*",
+        "willdurand/hateoas-bundle": "^2.2"
     },
     "config": {
         "optimize-autoloader": true,
