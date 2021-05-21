@@ -7,9 +7,28 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Validator\Constraints as Assert;
+use JMS\Serializer\Annotation as Serializer;
+use Hateoas\Configuration\Annotation as Hateoas;
 
 /**
  * @ORM\Entity(repositoryClass=UserRepository::class)
+ *
+ * @Serializer\ExclusionPolicy("all")
+ *
+ *@Hateoas\Relation(
+ *      "self",
+ *      href = @Hateoas\Route(
+ *          "api_user_show",
+ *          absolute = true
+ *      ),
+ *      exclusion = @Hateoas\Exclusion(groups={"global","details"})
+ * )
+ * @Hateoas\Relation(
+ *     "customers",
+ *     embedded = @Hateoas\Embedded("expr(object.getCustomers())"),
+ *     exclusion = @Hateoas\Exclusion(groups={"global","details"})
+ * )
  */
 class User implements UserInterface
 {
@@ -17,21 +36,29 @@ class User implements UserInterface
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
+     * @Serializer\Groups({"global","details","fromCustomer"})
+     * @Serializer\Expose
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Serializer\Groups({"global","details","fromCustomer"})
+     * @Serializer\Expose
      */
     private $firstname;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Serializer\Groups({"global","details","fromCustomer"})
+     * @Serializer\Expose
      */
     private $lastname;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Serializer\Groups({"details"})
+     * @Serializer\Expose
      */
     private $email;
 
