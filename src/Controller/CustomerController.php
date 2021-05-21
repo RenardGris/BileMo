@@ -142,8 +142,40 @@ class CustomerController extends AbstractFOSRestController
 
     }
 
-    public function delete()
+    /**
+     * @View(
+     *     StatusCode = 200,
+     *     serializerGroups = {"details"}
+     * )
+     * @Put(
+     *     path = "/api/customers/{id}",
+     *     name = "api_customers_update",
+     *     requirements = {"id"="\d+"}
+     * )
+     * @ParamConverter("newCustomer", converter="fos_rest.request_body")
+     * @param Customer $customer
+     * @param Customer $newCustomer
+     * @param ConstraintViolationList $violations
+     */
+    public function update(Customer $customer, Customer $newCustomer, ConstraintViolationList $violations)
     {
+
+        if($this->getUser() === $customer->getUser())
+        {
+            if(count($violations)){
+                return $this->view($violations, Response::HTTP_BAD_REQUEST);
+            }
+
+            $customer->setFirstname($newCustomer->getFirstname());
+            $customer->setLastname($newCustomer->getLastname());
+            $customer->setEmail($newCustomer->getEmail());
+
+            $this->getDoctrine()->getManager()->flush();
+
+            return $customer;
+        } else {
+            return new HttpException(404, "Customer not found");
+        }
 
     }
 
