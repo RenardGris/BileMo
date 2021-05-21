@@ -117,8 +117,28 @@ class CustomerController extends AbstractFOSRestController
 
     }
 
-    public function store()
+    /**
+     * @Delete(
+     *     path = "/api/customers/{id}",
+     *     name = "api_customers_delete",
+     *     requirements={"id"="\d+"}
+     * )
+     * @View(
+     *     statusCode = 204,
+     *     serializerGroups = {}
+     * )
+     * @param Customer $customer
+     * @param EntityManagerInterface $manager
+     */
+    public function delete(Customer $customer, EntityManagerInterface $manager)
     {
+        if($this->getUser() === $customer->getUser())
+        {
+            $manager->remove($customer);
+            $manager->flush();
+        } else {
+            return new HttpException(404, "Customer not found");
+        }
 
     }
 
