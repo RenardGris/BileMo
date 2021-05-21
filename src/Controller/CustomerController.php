@@ -79,8 +79,41 @@ class CustomerController extends AbstractFOSRestController
 
     }
 
-    public function show()
+    /**
+     * @Post(
+     *     path = "/api/customers",
+     *     name = "api_customers_store",
+     * )
+     * @View(
+     *     statusCode = 201,
+     *     serializerGroups = {"details"}
+     * )
+     * @ParamConverter("customer", converter="fos_rest.request_body")
+     * @param Customer $customer
+     * @param EntityManagerInterface $manager
+     * @param ConstraintViolationList $violations
+     * @return \FOS\RestBundle\View\View
+     * @throws ResourceValidationException
+     */
+    public function store(Customer $customer, EntityManagerInterface $manager, ConstraintViolationList $violations)
     {
+        if(count($violations)){
+            $exception = new ResourceValidationException(400);
+            $exception->setMessage($violations);
+            //$exception = new HttpException(404, "C'est cassé");
+            throw $exception;
+        } else {
+            $customer->setUser($this->getUser());
+
+            $manager->persist($customer);
+            $manager->flush();
+
+            return $this->view($customer, Response::HTTP_CREATED,
+                ['Location' => $this->generateUrl('api_customers_show',
+                    ['id' => $customer->getId(), \Symfony\Component\Routing\Generator\UrlGeneratorInterface::ABSOLUTE_URL])
+                ]
+            );
+        }
 
     }
 
