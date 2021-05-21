@@ -56,8 +56,26 @@ class CustomerController extends AbstractFOSRestController
         );
     }
 
-    public function index()
+
+    /**
+     * @Get(
+     *     path = "/api/customers/{id}",
+     *     name = "api_customers_show",
+     *     requirements={"id"="\d+"}
+     * )
+     * @View(
+     *     statusCode = 200,
+     *     serializerGroups = {"details"}
+     * )
+     * @param Customer $customer
+     */
+    public function show(Customer $customer)
     {
+        if($this->getUser() === $customer->getUser())
+        {
+            return $customer;
+        }
+        return new Response('Customer not found', 404);
 
     }
 
