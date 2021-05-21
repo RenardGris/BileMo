@@ -52,6 +52,13 @@ class Customer
      * @ORM\Column(type="string", length=255)
      * @Serializer\Groups({"global","details"})
      * @Serializer\Expose
+     * @Assert\NotBlank
+     * @Assert\Length(
+     *      min = 2,
+     *      max = 255,
+     *      minMessage = "Customer firstname must be at least {{ limit }} characters long",
+     *      maxMessage = "Customer firstname cannot be longer than {{ limit }} characters"
+     * )
      */
     private $firstname;
 
@@ -59,6 +66,13 @@ class Customer
      * @ORM\Column(type="string", length=255)
      * @Serializer\Groups({"global","details"})
      * @Serializer\Expose
+     * @Assert\NotBlank
+     * @Assert\Length(
+     *      min = 2,
+     *      max = 255,
+     *      minMessage = "Customer lastname must be at least {{ limit }} characters long",
+     *      maxMessage = "Customer lastname cannot be longer than {{ limit }} characters"
+     * )
      */
     private $lastname;
 
@@ -66,6 +80,16 @@ class Customer
      * @ORM\Column(type="string", length=255)
      * @Serializer\Groups({"details"})
      * @Serializer\Expose
+     * @Assert\NotBlank
+     * @Assert\Email(
+     *     message = "The email '{{ value }}' is not a valid email."
+     * )
+     * @Assert\Length(
+     *      min = 5,
+     *      max = 255,
+     *      minMessage = "Customer email must be at least {{ limit }} characters long",
+     *      maxMessage = "Customer email cannot be longer than {{ limit }} characters"
+     * )
      */
     private $email;
 
