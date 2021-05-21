@@ -4,9 +4,25 @@ namespace App\Entity;
 
 use App\Repository\ProductRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
+use JMS\Serializer\Annotation as Serializer;
+use Hateoas\Configuration\Annotation as Hateoas;
 
 /**
  * @ORM\Entity(repositoryClass=ProductRepository::class)
+ *
+ *
+ * @Serializer\ExclusionPolicy("all")
+ *
+ * @Hateoas\Relation(
+ *      "self",
+ *      href = @Hateoas\Route(
+ *          "api_products_show",
+ *          parameters = { "id" = "expr(object.getId())" },
+ *          absolute = true
+ *      ),
+ *     exclusion = @Hateoas\Exclusion(groups={"global","details"})
+ * )
  */
 class Product
 {
@@ -14,26 +30,36 @@ class Product
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
+     * @Serializer\Groups({"global","details"})
+     * @Serializer\Expose
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Serializer\Groups({"global","details"})
+     * @Serializer\Expose
      */
     private $brand;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Serializer\Groups({"global","details"})
+     * @Serializer\Expose
      */
     private $name;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Serializer\Groups({"global","details"})
+     * @Serializer\Expose
      */
     private $model;
 
     /**
      * @ORM\Column(type="float")
+     * @Serializer\Groups({"details"})
+     * @Serializer\Expose
      */
     private $price;
 
