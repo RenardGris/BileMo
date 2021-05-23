@@ -111,10 +111,9 @@ class CustomerController extends AbstractFOSRestController
      * )
      *
      * @OA\Post(
-     *     path="/api/customers/{id}",
+     *     path="/api/customers",
      *     tags={"Customers"},
      *     security={{"BearerAuth"={}}},
-     *     @OA\Parameter(ref="#/components/parameters/id"),
      *     @OA\RequestBody(ref="#/components/requestBodies/storeCustomer"),
      *     @OA\Response(response=201, ref="#/components/responses/customerResource"),
      *     @OA\Response(response=400, ref="#/components/responses/badRequest"),

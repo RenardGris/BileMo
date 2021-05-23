@@ -25,6 +25,31 @@
                         "BearerAuth": []
                     }
                 ]
+            },
+            "post": {
+                "tags": [
+                    "Customers"
+                ],
+                "operationId": "App\\Controller\\CustomerController::store",
+                "requestBody": {
+                    "$ref": "#/components/requestBodies/storeCustomer"
+                },
+                "responses": {
+                    "201": {
+                        "$ref": "#/components/responses/customerResource"
+                    },
+                    "400": {
+                        "$ref": "#/components/responses/badRequest"
+                    },
+                    "401": {
+                        "$ref": "#/components/responses/invalidToken"
+                    }
+                },
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ]
             }
         },
         "/api/customers/{id}": {
@@ -60,36 +85,6 @@
                     "Customers"
                 ],
                 "operationId": "App\\Controller\\CustomerController::update",
-                "parameters": [
-                    {
-                        "$ref": "#/components/parameters/id"
-                    }
-                ],
-                "requestBody": {
-                    "$ref": "#/components/requestBodies/storeCustomer"
-                },
-                "responses": {
-                    "201": {
-                        "$ref": "#/components/responses/customerResource"
-                    },
-                    "400": {
-                        "$ref": "#/components/responses/badRequest"
-                    },
-                    "401": {
-                        "$ref": "#/components/responses/invalidToken"
-                    }
-                },
-                "security": [
-                    {
-                        "BearerAuth": []
-                    }
-                ]
-            },
-            "post": {
-                "tags": [
-                    "Customers"
-                ],
-                "operationId": "App\\Controller\\CustomerController::store",
                 "parameters": [
                     {
                         "$ref": "#/components/parameters/id"
