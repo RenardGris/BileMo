@@ -109,6 +109,18 @@ class CustomerController extends AbstractFOSRestController
      *     statusCode = 201,
      *     serializerGroups = {"details"}
      * )
+     *
+     * @OA\Post(
+     *     path="/api/customers/{id}",
+     *     tags={"Customers"},
+     *     security={{"BearerAuth"={}}},
+     *     @OA\Parameter(ref="#/components/parameters/id"),
+     *     @OA\RequestBody(ref="#/components/requestBodies/storeCustomer"),
+     *     @OA\Response(response=201, ref="#/components/responses/customerResource"),
+     *     @OA\Response(response=400, ref="#/components/responses/badRequest"),
+     *     @OA\Response(response=401, ref="#/components/responses/invalidToken"),
+     * )
+     *
      * @ParamConverter("customer", converter="fos_rest.request_body")
      * @param Customer $customer
      * @param EntityManagerInterface $manager
