@@ -45,6 +45,16 @@ class UserController extends AbstractController
      *     statusCode = 200,
      *     serializerGroups = {"global","details"}
      * )
+     *
+     *
+     * @OA\Get(
+     *     path="/api/users",
+     *     tags={"User"},
+     *     security={{"BearerAuth"={}}},
+     *     @OA\Response(response=200, ref="#/components/responses/loggedUser"),
+     *     @OA\Response(response=401, ref="#/components/responses/invalidToken"),
+     * )
+     *
      * @param EntityManagerInterface $manager
      * @return string
      */
