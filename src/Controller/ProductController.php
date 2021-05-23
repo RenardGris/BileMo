@@ -12,6 +12,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use FOS\RestBundle\Controller\Annotations\Get;
 use FOS\RestBundle\Controller\Annotations\View;
+use OpenApi\Annotations as OA;
 
 class ProductController extends AbstractController
 {
@@ -25,6 +26,15 @@ class ProductController extends AbstractController
      *     statusCode = 200,
      *     serializerGroups = {"global"}
      * )
+     *
+     * @OA\Get(
+     *     path="/api/products",
+     *     tags={"Products"},
+     *     security={{"BearerAuth"={}}},
+     *     @OA\Response(response=200, ref="#/components/responses/productCollection"),
+     *     @OA\Response(response=401, ref="#/components/responses/invalidToken"),
+     * )
+     *
      * @param EntityManagerInterface $manager
      * @param Request $request
      * @param Paginator $paginator
