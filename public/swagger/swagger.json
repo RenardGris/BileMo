@@ -1,0 +1,613 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "Documentation BileMo",
+        "description": "Documentation for BileMo project",
+        "version": "1.0"
+    },
+    "paths": {
+        "/api/customers": {
+            "get": {
+                "tags": [
+                    "Customers"
+                ],
+                "operationId": "App\\Controller\\CustomerController::index",
+                "responses": {
+                    "200": {
+                        "$ref": "#/components/responses/customerCollection"
+                    },
+                    "401": {
+                        "$ref": "#/components/responses/invalidToken"
+                    }
+                },
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/customers/{id}": {
+            "get": {
+                "tags": [
+                    "Customers"
+                ],
+                "operationId": "App\\Controller\\CustomerController::show",
+                "parameters": [
+                    {
+                        "$ref": "#/components/parameters/id"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "$ref": "#/components/responses/customerResource"
+                    },
+                    "404": {
+                        "$ref": "#/components/responses/notFound"
+                    },
+                    "401": {
+                        "$ref": "#/components/responses/invalidToken"
+                    }
+                },
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ]
+            },
+            "put": {
+                "tags": [
+                    "Customers"
+                ],
+                "operationId": "App\\Controller\\CustomerController::update",
+                "parameters": [
+                    {
+                        "$ref": "#/components/parameters/id"
+                    }
+                ],
+                "requestBody": {
+                    "$ref": "#/components/requestBodies/storeCustomer"
+                },
+                "responses": {
+                    "201": {
+                        "$ref": "#/components/responses/customerResource"
+                    },
+                    "400": {
+                        "$ref": "#/components/responses/badRequest"
+                    },
+                    "401": {
+                        "$ref": "#/components/responses/invalidToken"
+                    }
+                },
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ]
+            },
+            "post": {
+                "tags": [
+                    "Customers"
+                ],
+                "operationId": "App\\Controller\\CustomerController::store",
+                "parameters": [
+                    {
+                        "$ref": "#/components/parameters/id"
+                    }
+                ],
+                "requestBody": {
+                    "$ref": "#/components/requestBodies/storeCustomer"
+                },
+                "responses": {
+                    "201": {
+                        "$ref": "#/components/responses/customerResource"
+                    },
+                    "400": {
+                        "$ref": "#/components/responses/badRequest"
+                    },
+                    "401": {
+                        "$ref": "#/components/responses/invalidToken"
+                    }
+                },
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ]
+            },
+            "delete": {
+                "tags": [
+                    "Customers"
+                ],
+                "operationId": "App\\Controller\\CustomerController::delete",
+                "parameters": [
+                    {
+                        "$ref": "#/components/parameters/id"
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "$ref": "#/components/responses/delete"
+                    },
+                    "404": {
+                        "$ref": "#/components/responses/notFound"
+                    },
+                    "401": {
+                        "$ref": "#/components/responses/invalidToken"
+                    }
+                },
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/products": {
+            "get": {
+                "tags": [
+                    "Products"
+                ],
+                "operationId": "App\\Controller\\ProductController::index",
+                "responses": {
+                    "200": {
+                        "$ref": "#/components/responses/productCollection"
+                    },
+                    "401": {
+                        "$ref": "#/components/responses/invalidToken"
+                    }
+                },
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/products/{id}": {
+            "get": {
+                "tags": [
+                    "Products"
+                ],
+                "operationId": "App\\Controller\\ProductController::show",
+                "parameters": [
+                    {
+                        "$ref": "#/components/parameters/id"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "$ref": "#/components/responses/productResource"
+                    },
+                    "404": {
+                        "$ref": "#/components/responses/notFound"
+                    },
+                    "401": {
+                        "$ref": "#/components/responses/invalidToken"
+                    }
+                },
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/login": {
+            "put": {
+                "tags": [
+                    "User"
+                ],
+                "summary": "Provides new token with basic authentication",
+                "operationId": "App\\Controller\\UserController::login",
+                "requestBody": {
+                    "$ref": "#/components/requestBodies/loginUser"
+                },
+                "responses": {
+                    "200": {
+                        "$ref": "#/components/responses/loggedUser"
+                    },
+                    "400": {
+                        "$ref": "#/components/responses/badRequest"
+                    },
+                    "401": {
+                        "$ref": "#/components/responses/invalidCredential"
+                    }
+                }
+            }
+        },
+        "/api/users": {
+            "get": {
+                "tags": [
+                    "User"
+                ],
+                "summary": "Show details for the current logged user",
+                "operationId": "App\\Controller\\UserController::show",
+                "responses": {
+                    "200": {
+                        "$ref": "#/components/responses/loggedUser"
+                    },
+                    "401": {
+                        "$ref": "#/components/responses/invalidToken"
+                    }
+                },
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ]
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "Customer": {
+                "properties": {
+                    "id": {
+                        "type": "integer"
+                    },
+                    "firstname": {
+                        "type": "string"
+                    },
+                    "lastname": {
+                        "type": "string"
+                    },
+                    "email": {
+                        "type": "string"
+                    },
+                    "User": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/userGlobal"
+                        }
+                    }
+                },
+                "type": "object"
+            },
+            "Product": {
+                "properties": {
+                    "id": {
+                        "type": "integer"
+                    },
+                    "brand": {
+                        "type": "string"
+                    },
+                    "name": {
+                        "type": "string"
+                    },
+                    "model": {
+                        "type": "string"
+                    },
+                    "price": {
+                        "type": "number",
+                        "format": "double"
+                    }
+                },
+                "type": "object"
+            },
+            "productGlobal": {
+                "description": "Product's global properties",
+                "properties": {
+                    "id": {
+                        "description": "General information",
+                        "type": "integer"
+                    },
+                    "brand": {
+                        "description": "General information",
+                        "type": "string"
+                    },
+                    "name": {
+                        "description": "General information",
+                        "type": "string"
+                    },
+                    "model": {
+                        "description": "General information",
+                        "type": "string"
+                    }
+                },
+                "type": "object"
+            },
+            "customerGlobal": {
+                "description": "Customer's global properties",
+                "properties": {
+                    "id": {
+                        "description": "General information",
+                        "type": "integer"
+                    },
+                    "firstname": {
+                        "description": "General information",
+                        "type": "string"
+                    },
+                    "lastname": {
+                        "description": "General information",
+                        "type": "string"
+                    }
+                },
+                "type": "object"
+            },
+            "userGlobal": {
+                "description": "User's global properties",
+                "properties": {
+                    "id": {
+                        "description": "General information",
+                        "type": "integer"
+                    },
+                    "firstname": {
+                        "description": "General information",
+                        "type": "string"
+                    },
+                    "lastname": {
+                        "description": "General information",
+                        "type": "string"
+                    }
+                },
+                "type": "object"
+            },
+            "User": {
+                "description": "Customer's properties",
+                "type": "object",
+                "allOf": [
+                    {
+                        "$ref": "#/components/schemas/userGlobal"
+                    },
+                    {
+                        "properties": {
+                            "email": {
+                                "description": "General information",
+                                "type": "string"
+                            },
+                            "": {
+                                "description": "General information",
+                                "type": "array",
+                                "items": {
+                                    "$ref": "#/components/schemas/customerGlobal"
+                                }
+                            }
+                        }
+                    }
+                ]
+            }
+        },
+        "responses": {
+            "productCollection": {
+                "description": "return a paginated collection of products",
+                "content": {
+                    "application/json": {
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/components/schemas/productGlobal"
+                            }
+                        }
+                    }
+                }
+            },
+            "productResource": {
+                "description": "return the product",
+                "content": {
+                    "application/json": {
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/components/schemas/Product"
+                            }
+                        }
+                    }
+                }
+            },
+            "customerCollection": {
+                "description": "return a paginated collection of customers",
+                "content": {
+                    "application/json": {
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/components/schemas/customerGlobal"
+                            }
+                        }
+                    }
+                }
+            },
+            "customerResource": {
+                "description": "return the customer",
+                "content": {
+                    "application/json": {
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/components/schemas/Customer"
+                            }
+                        }
+                    }
+                }
+            },
+            "loggedUser": {
+                "description": "return details from logged user",
+                "content": {
+                    "application/json": {
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/components/schemas/User"
+                            }
+                        }
+                    }
+                }
+            },
+            "notFound": {
+                "description": "not found the requested resource",
+                "content": {
+                    "application/json": {
+                        "schema": {
+                            "properties": {
+                                "code": {
+                                    "description": "General information",
+                                    "type": "integer",
+                                    "example": "404"
+                                },
+                                "message": {
+                                    "description": "General information",
+                                    "type": "string",
+                                    "example": "resource not found"
+                                }
+                            },
+                            "type": "object"
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "description": "delete the requested resource",
+                "content": {
+                    "application/json": {
+                        "schema": {
+                            "type": "object"
+                        }
+                    }
+                }
+            },
+            "invalidToken": {
+                "description": "return an error message according to an invalid, missing or expired token",
+                "content": {
+                    "application/json": {
+                        "schema": {
+                            "properties": {
+                                "code": {
+                                    "description": "General information",
+                                    "type": "integer",
+                                    "example": "401"
+                                },
+                                "message": {
+                                    "description": "General information",
+                                    "type": "string",
+                                    "example": "invalid token"
+                                }
+                            },
+                            "type": "object"
+                        }
+                    }
+                }
+            },
+            "invalidCredential": {
+                "description": "return an invalid credential error message",
+                "content": {
+                    "application/json": {
+                        "schema": {
+                            "properties": {
+                                "code": {
+                                    "description": "General information",
+                                    "type": "integer",
+                                    "example": "401"
+                                },
+                                "message": {
+                                    "description": "General information",
+                                    "type": "string",
+                                    "example": "invalid credentials"
+                                }
+                            },
+                            "type": "object"
+                        }
+                    }
+                }
+            },
+            "badRequest": {
+                "description": "return a message with the invalid data",
+                "content": {
+                    "application/json": {
+                        "schema": {
+                            "properties": {
+                                "code": {
+                                    "description": "General information",
+                                    "type": "integer",
+                                    "example": "400"
+                                },
+                                "message": {
+                                    "description": "General information",
+                                    "type": "string",
+                                    "example": "This Json content invalid data."
+                                }
+                            },
+                            "type": "object"
+                        }
+                    }
+                }
+            }
+        },
+        "parameters": {
+            "id": {
+                "name": "id",
+                "in": "path",
+                "description": "the resource id",
+                "required": true,
+                "schema": {
+                    "type": "integer"
+                }
+            },
+            "page": {
+                "name": "page",
+                "in": "query",
+                "description": "the requested page of paginated collection",
+                "required": false,
+                "schema": {
+                    "type": "integer"
+                }
+            }
+        },
+        "requestBodies": {
+            "storeCustomer": {
+                "required": true,
+                "content": {
+                    "application/json": {
+                        "schema": {
+                            "properties": {
+                                "firstname": {
+                                    "description": "General information",
+                                    "type": "string"
+                                },
+                                "lastname": {
+                                    "description": "General information",
+                                    "type": "string"
+                                },
+                                "email": {
+                                    "description": "General information",
+                                    "type": "string"
+                                }
+                            },
+                            "type": "object"
+                        }
+                    }
+                }
+            },
+            "loginUser": {
+                "description": "General information",
+                "required": true,
+                "content": {
+                    "application/json": {
+                        "schema": {
+                            "properties": {
+                                "username": {
+                                    "description": "General information",
+                                    "type": "string",
+                                    "example": "username@email.com"
+                                },
+                                "password": {
+                                    "description": "General information",
+                                    "type": "string",
+                                    "example": "MySecretPassword"
+                                }
+                            },
+                            "type": "object"
+                        }
+                    }
+                }
+            }
+        },
+        "securitySchemes": {
+            "BearerAuth": {
+                "type": "http",
+                "bearerFormat": "JWT",
+                "scheme": "bearer"
+            }
+        }
+    }
+}
