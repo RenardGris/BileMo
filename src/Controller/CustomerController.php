@@ -77,6 +77,17 @@ class CustomerController extends AbstractFOSRestController
      *     statusCode = 200,
      *     serializerGroups = {"details"}
      * )
+     *
+     * @OA\Get(
+     *     path="/api/customers/{id}",
+     *     tags={"Customers"},
+     *     security={{"BearerAuth"={}}},
+     *     @OA\Parameter(ref="#/components/parameters/id"),
+     *     @OA\Response(response=200, ref="#/components/responses/customerResource"),
+     *     @OA\Response(response=404, ref="#/components/responses/notFound"),
+     *     @OA\Response(response=401, ref="#/components/responses/invalidToken"),
+     * )
+     *
      * @param Customer $customer
      */
     public function show(Customer $customer)
