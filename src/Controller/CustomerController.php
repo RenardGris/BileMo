@@ -20,6 +20,7 @@ use FOS\RestBundle\Controller\Annotations\Post;
 use FOS\RestBundle\Controller\Annotations\Put;
 use FOS\RestBundle\Controller\Annotations\Delete;
 use FOS\RestBundle\Controller\Annotations\View;
+use OpenApi\Annotations as OA;
 
 class CustomerController extends AbstractFOSRestController
 {
@@ -32,6 +33,15 @@ class CustomerController extends AbstractFOSRestController
      *     statusCode = 200,
      *     serializerGroups = {"global"}
      * )
+     *
+     * @OA\Get(
+     *     path="/api/customers",
+     *     tags={"Customers"},
+     *     security={{"BearerAuth"={}}},
+     *     @OA\Response(response=200, ref="#/components/responses/customerCollection"),
+     *     @OA\Response(response=401, ref="#/components/responses/invalidToken"),
+     * )
+     *
      * @param EntityManagerInterface $manager
      * @param Request $request
      * @param Paginator $paginator
@@ -67,6 +77,17 @@ class CustomerController extends AbstractFOSRestController
      *     statusCode = 200,
      *     serializerGroups = {"details"}
      * )
+     *
+     * @OA\Get(
+     *     path="/api/customers/{id}",
+     *     tags={"Customers"},
+     *     security={{"BearerAuth"={}}},
+     *     @OA\Parameter(ref="#/components/parameters/id"),
+     *     @OA\Response(response=200, ref="#/components/responses/customerResource"),
+     *     @OA\Response(response=404, ref="#/components/responses/notFound"),
+     *     @OA\Response(response=401, ref="#/components/responses/invalidToken"),
+     * )
+     *
      * @param Customer $customer
      */
     public function show(Customer $customer)
@@ -88,6 +109,17 @@ class CustomerController extends AbstractFOSRestController
      *     statusCode = 201,
      *     serializerGroups = {"details"}
      * )
+     *
+     * @OA\Post(
+     *     path="/api/customers",
+     *     tags={"Customers"},
+     *     security={{"BearerAuth"={}}},
+     *     @OA\RequestBody(ref="#/components/requestBodies/storeCustomer"),
+     *     @OA\Response(response=201, ref="#/components/responses/customerResource"),
+     *     @OA\Response(response=400, ref="#/components/responses/badRequest"),
+     *     @OA\Response(response=401, ref="#/components/responses/invalidToken"),
+     * )
+     *
      * @ParamConverter("customer", converter="fos_rest.request_body")
      * @param Customer $customer
      * @param EntityManagerInterface $manager
@@ -127,6 +159,17 @@ class CustomerController extends AbstractFOSRestController
      *     statusCode = 204,
      *     serializerGroups = {}
      * )
+     *
+     * @OA\Delete (
+     *     path="/api/customers/{id}",
+     *     tags={"Customers"},
+     *     security={{"BearerAuth"={}}},
+     *     @OA\Parameter(ref="#/components/parameters/id"),
+     *     @OA\Response(response=204, ref="#/components/responses/delete"),
+     *     @OA\Response(response=404, ref="#/components/responses/notFound"),
+     *     @OA\Response(response=401, ref="#/components/responses/invalidToken"),
+     * )
+     *
      * @param Customer $customer
      * @param EntityManagerInterface $manager
      */
@@ -152,6 +195,18 @@ class CustomerController extends AbstractFOSRestController
      *     name = "api_customers_update",
      *     requirements = {"id"="\d+"}
      * )
+     *
+     * @OA\Put(
+     *     path="/api/customers/{id}",
+     *     tags={"Customers"},
+     *     security={{"BearerAuth"={}}},
+     *     @OA\Parameter(ref="#/components/parameters/id"),
+     *     @OA\RequestBody(ref="#/components/requestBodies/storeCustomer"),
+     *     @OA\Response(response=201, ref="#/components/responses/customerResource"),
+     *     @OA\Response(response=400, ref="#/components/responses/badRequest"),
+     *     @OA\Response(response=401, ref="#/components/responses/invalidToken"),
+     * )
+     *
      * @ParamConverter("newCustomer", converter="fos_rest.request_body")
      * @param Customer $customer
      * @param Customer $newCustomer

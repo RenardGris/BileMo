@@ -7,6 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 use JMS\Serializer\Annotation as Serializer;
 use Hateoas\Configuration\Annotation as Hateoas;
+use OpenApi\Annotations as OA;
 
 /**
  * @ORM\Entity(repositoryClass=ProductRepository::class)
@@ -23,6 +24,9 @@ use Hateoas\Configuration\Annotation as Hateoas;
  *      ),
  *     exclusion = @Hateoas\Exclusion(groups={"global","details"})
  * )
+ *
+ * @OA\Schema()
+ *
  */
 class Product
 {
@@ -32,6 +36,7 @@ class Product
      * @ORM\Column(type="integer")
      * @Serializer\Groups({"global","details"})
      * @Serializer\Expose
+     * @OA\Property(type="integer")
      */
     private $id;
 
@@ -39,6 +44,7 @@ class Product
      * @ORM\Column(type="string", length=255)
      * @Serializer\Groups({"global","details"})
      * @Serializer\Expose
+     * @OA\Property(type="string")
      */
     private $brand;
 
@@ -46,6 +52,7 @@ class Product
      * @ORM\Column(type="string", length=255)
      * @Serializer\Groups({"global","details"})
      * @Serializer\Expose
+     * @OA\Property(type="string")
      */
     private $name;
 
@@ -53,6 +60,7 @@ class Product
      * @ORM\Column(type="string", length=255)
      * @Serializer\Groups({"global","details"})
      * @Serializer\Expose
+     * @OA\Property(type="string")
      */
     private $model;
 
@@ -60,6 +68,7 @@ class Product
      * @ORM\Column(type="float")
      * @Serializer\Groups({"details"})
      * @Serializer\Expose
+     * @OA\Property(type="number", format="double")
      */
     private $price;
 

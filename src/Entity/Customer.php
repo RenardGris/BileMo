@@ -7,6 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 use JMS\Serializer\Annotation as Serializer;
 use Hateoas\Configuration\Annotation as Hateoas;
+use OpenApi\Annotations as OA;
 
 /**
  * @ORM\Entity(repositoryClass=CustomerRepository::class)
@@ -36,6 +37,9 @@ use Hateoas\Configuration\Annotation as Hateoas;
  *     embedded = @Hateoas\Embedded("expr(object.getUser())"),
  *     exclusion = @Hateoas\Exclusion(groups={"global","details"})
  * )
+ *
+ * @OA\Schema()
+ *
  */
 class Customer
 {
@@ -45,6 +49,7 @@ class Customer
      * @ORM\Column(type="integer")
      * @Serializer\Groups({"global","details"})
      * @Serializer\Expose
+     * @OA\Property(type="integer")
      */
     private $id;
 
@@ -59,6 +64,7 @@ class Customer
      *      minMessage = "Customer firstname must be at least {{ limit }} characters long",
      *      maxMessage = "Customer firstname cannot be longer than {{ limit }} characters"
      * )
+     * @OA\Property(type="string")
      */
     private $firstname;
 
@@ -73,6 +79,7 @@ class Customer
      *      minMessage = "Customer lastname must be at least {{ limit }} characters long",
      *      maxMessage = "Customer lastname cannot be longer than {{ limit }} characters"
      * )
+     * @OA\Property(type="string")
      */
     private $lastname;
 
@@ -90,12 +97,14 @@ class Customer
      *      minMessage = "Customer email must be at least {{ limit }} characters long",
      *      maxMessage = "Customer email cannot be longer than {{ limit }} characters"
      * )
+     * @OA\Property(type="string")
      */
     private $email;
 
     /**
      * @ORM\ManyToOne(targetEntity=User::class, inversedBy="customers")
      * @ORM\JoinColumn(nullable=false)
+     * @OA\Property(type="array", @OA\Items(ref="#/components/schemas/userGlobal"))
      */
     private $User;
 
