@@ -20,6 +20,7 @@ use FOS\RestBundle\Controller\Annotations\Post;
 use FOS\RestBundle\Controller\Annotations\Put;
 use FOS\RestBundle\Controller\Annotations\Delete;
 use FOS\RestBundle\Controller\Annotations\View;
+use OpenApi\Annotations as OA;
 
 class CustomerController extends AbstractFOSRestController
 {
@@ -32,6 +33,15 @@ class CustomerController extends AbstractFOSRestController
      *     statusCode = 200,
      *     serializerGroups = {"global"}
      * )
+     *
+     * @OA\Get(
+     *     path="/api/customers",
+     *     tags={"Customers"},
+     *     security={{"BearerAuth"={}}},
+     *     @OA\Response(response=200, ref="#/components/responses/customerCollection"),
+     *     @OA\Response(response=401, ref="#/components/responses/invalidToken"),
+     * )
+     *
      * @param EntityManagerInterface $manager
      * @param Request $request
      * @param Paginator $paginator
