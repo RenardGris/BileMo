@@ -2,7 +2,7 @@
 
 ## Project
 
-###Presentation
+### Presentation
 This project was made during my apprenticeship in programming
 This is a symfony API around a btob business, 
 we propose a list of phones to our users,
