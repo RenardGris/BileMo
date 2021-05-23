@@ -160,6 +160,17 @@ class CustomerController extends AbstractFOSRestController
      *     statusCode = 204,
      *     serializerGroups = {}
      * )
+     *
+     * @OA\Delete (
+     *     path="/api/customers/{id}",
+     *     tags={"Customers"},
+     *     security={{"BearerAuth"={}}},
+     *     @OA\Parameter(ref="#/components/parameters/id"),
+     *     @OA\Response(response=204, ref="#/components/responses/delete"),
+     *     @OA\Response(response=404, ref="#/components/responses/notFound"),
+     *     @OA\Response(response=401, ref="#/components/responses/invalidToken"),
+     * )
+     *
      * @param Customer $customer
      * @param EntityManagerInterface $manager
      */
