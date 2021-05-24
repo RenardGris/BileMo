@@ -24,6 +24,15 @@ use OpenApi\Annotations as OA;
  *     exclusion = @Hateoas\Exclusion(groups={"global","details"})
  * )
  * @Hateoas\Relation(
+ *      "update",
+ *      href = @Hateoas\Route(
+ *          "api_customers_update",
+ *          parameters = { "id" = "expr(object.getId())" },
+ *          absolute = true
+ *      ),
+ *     exclusion = @Hateoas\Exclusion(groups={"global","details"})
+ * )
+ * @Hateoas\Relation(
  *      "delete",
  *      href = @Hateoas\Route(
  *          "api_customers_delete",
@@ -31,7 +40,7 @@ use OpenApi\Annotations as OA;
  *          absolute = true
  *      ),
  *     exclusion = @Hateoas\Exclusion(groups={"global","details"})
- * )*
+ * )
  * @Hateoas\Relation(
  *     "user",
  *     embedded = @Hateoas\Embedded("expr(object.getUser())"),
