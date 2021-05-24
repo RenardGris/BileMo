@@ -19,7 +19,6 @@ class AppFixtures extends Fixture
         $this->loadProducts($faker, $manager);
         $this->loadCustomers($faker, $manager);
 
-
         $manager->flush();
     }
 
@@ -33,7 +32,9 @@ class AppFixtures extends Fixture
             $user->setFirstname($faker->firstName)
                 ->setLastname($faker->lastname)
                 ->setEmail($faker->email)
-                ->setPassword($encoded);
+                ->setPassword($encoded)
+                ->setCompany($faker->company)
+                ->setPhone($faker->numerify('+336########'));
 
             $manager->persist($user);
         }
@@ -51,7 +52,11 @@ class AppFixtures extends Fixture
                 $customer->setFirstname($faker->firstName)
                     ->setLastname($faker->lastname)
                     ->setEmail($faker->email)
-                    ->setUser($user);
+                    ->setUser($user)
+                    ->setPhone($faker->numerify('+336########'))
+                    ->setAddress($faker->streetAddress)
+                    ->setCity($faker->city)
+                    ->setPostalCode($faker->numerify('####0'));
                 $manager->persist($customer);
             }
         }
@@ -62,15 +67,32 @@ class AppFixtures extends Fixture
     {
 
         $brands = ['Apple', 'Samsung', 'Xiaomi', 'Oppo'];
-        $name = ['Iphone ', 'Galaxy S', 'Mi ', 'Reno Z'];
+        $names = ['Iphone ', 'Galaxy S', 'Mi ', 'Reno Z'];
+        $chargers = ['Lightning', 'Micro USB-C'];
+        $colors = ['Abyssal Blue', 'Scarlet', 'Dark Onyx', 'Polar White', 'Sunrise'];
+        $storages = ['32', '64', '128', '256', '512'];
+        $models = ['Max','Pro', 'S', 'S Plus', 'Special Edition'];
 
         foreach ($brands as $key => $brand) {
             for ($i = 0; $i <= 3; $i++) {
+
+                $color = $faker->randomElement($colors);
+                $storage = $faker->randomElement($storages) . 'Go';
+                $charger = $key === 0 ? $chargers[$key] :  $chargers[1];
+                $price = $faker->randomFloat(2,100,1000);
+                $screen = $faker->randomFloat(2,4,7);
+                $name = $names[$key] . ($faker->numberBetween(4,10) + $i);
+                $model = $faker->randomElement($models);
+
                 $product = new Product();
-                $product->setName($name[$key] . ($faker->numberBetween(4,10) + $i) )
-                    ->setBrand($brand)
-                    ->setModel($faker->randomElement(['32', '64', '128', '256', '512']) . 'Go')
-                    ->setPrice($faker->randomFloat(2,100,1000));
+                $product->setBrand($brand)
+                    ->setName($name)
+                    ->setModel($model)
+                    ->setPrice($price)
+                    ->setColor($color)
+                    ->setScreenSize($screen)
+                    ->setStorage($storage)
+                    ->setChargerType($charger);
                 $manager->persist($product);
             }
         }
