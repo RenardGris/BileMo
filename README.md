@@ -53,6 +53,10 @@ composer install
 # DATABASE_URL="mysql://db_user:db_password@127.0.0.1:3306/db_name?serverVersion=mariadb-10.4.10"
 # DATABASE_URL="postgresql://db_user:db_password@127.0.0.1:5432/db_name?serverVersion=13&charset=utf8"
 ```
+- 3.2 Remember to also change the jwt passphrase
+``` 
+JWT_PASSPHRASE=YOURCUSTOMPASSPHRASE
+```
 
 4.  else you can make tables and data with the next symfony cli
 ``` 
