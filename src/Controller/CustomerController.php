@@ -3,7 +3,9 @@
 namespace App\Controller;
 
 use App\Entity\Customer;
+use App\Exception\NotFoundException;
 use App\Exception\ResourceValidationException;
+use App\Service\CheckException;
 use App\Service\Paginator;
 use Doctrine\ORM\EntityManagerInterface;
 use FOS\RestBundle\Controller\AbstractFOSRestController;
@@ -92,12 +94,10 @@ class CustomerController extends AbstractFOSRestController
      */
     public function show(Customer $customer)
     {
-        if($this->getUser() === $customer->getUser())
+        if(CheckException::checkUserCustomerRelation($this->getUser(), $customer))
         {
             return $customer;
         }
-        return new Response('Customer not found', 404);
-
     }
 
     /**
@@ -129,12 +129,7 @@ class CustomerController extends AbstractFOSRestController
      */
     public function store(Customer $customer, EntityManagerInterface $manager, ConstraintViolationList $violations)
     {
-        if(count($violations)){
-            $exception = new ResourceValidationException(400);
-            $exception->setMessage($violations);
-            //$exception = new HttpException(404, "C'est cassé");
-            throw $exception;
-        } else {
+        if(!CheckException::hasViolations($violations)){
             $customer->setUser($this->getUser());
 
             $manager->persist($customer);
@@ -172,15 +167,14 @@ class CustomerController extends AbstractFOSRestController
      *
      * @param Customer $customer
      * @param EntityManagerInterface $manager
+     * @throws NotFoundException
      */
     public function delete(Customer $customer, EntityManagerInterface $manager)
     {
-        if($this->getUser() === $customer->getUser())
+        if(CheckException::checkUserCustomerRelation($this->getUser(), $customer))
         {
             $manager->remove($customer);
             $manager->flush();
-        } else {
-            return new HttpException(404, "Customer not found");
         }
 
     }
@@ -211,27 +205,19 @@ class CustomerController extends AbstractFOSRestController
      * @param Customer $customer
      * @param Customer $newCustomer
      * @param ConstraintViolationList $violations
+     * @return Customer
+     * @throws NotFoundException|ResourceValidationException
      */
-    public function update(Customer $customer, Customer $newCustomer, ConstraintViolationList $violations)
+    public function update(Customer $customer, Customer $newCustomer, ConstraintViolationList $violations): Customer
     {
-
-        if($this->getUser() === $customer->getUser())
+        if(CheckException::checkUserCustomerRelation($this->getUser(), $customer) && !CheckException::hasViolations($violations))
         {
-            if(count($violations)){
-                return $this->view($violations, Response::HTTP_BAD_REQUEST);
-            }
-
             $customer->setFirstname($newCustomer->getFirstname());
             $customer->setLastname($newCustomer->getLastname());
             $customer->setEmail($newCustomer->getEmail());
-
             $this->getDoctrine()->getManager()->flush();
-
-            return $customer;
-        } else {
-            return new HttpException(404, "Customer not found");
         }
-
+        return $customer;
     }
 
 }
