@@ -189,7 +189,7 @@
             }
         },
         "/api/login": {
-            "put": {
+            "post": {
                 "tags": [
                     "User"
                 ],
