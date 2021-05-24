@@ -39,7 +39,7 @@ class ProductController extends AbstractController
      * @param Request $request
      * @param Paginator $paginator
      * @param SerializerInterface $serializer
-     * @return Response
+     * @return array
      */
     public function index(EntityManagerInterface $manager, Request $request, Paginator $paginator, SerializerInterface $serializer)
     {
@@ -48,13 +48,14 @@ class ProductController extends AbstractController
             $request->attributes->get('_route'),
             $request->query->get('page', 1),
         );
-        return new Response(
-            $serializer->serialize(
-                $data,
-                'json',
-                SerializationContext::create()->setGroups(["Default", "items" => ["global"]])
-            )
-        );
+
+        $serializedData = $serializer->serialize(
+            $data,
+            'json',
+            SerializationContext::create()
+                ->setGroups(["Default", "items" => ["global", "items" => ["global"]] ]));
+
+        return $paginator->getPaginatedResponse($serializedData);
     }
 
     /**

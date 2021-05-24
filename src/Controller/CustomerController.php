@@ -48,7 +48,7 @@ class CustomerController extends AbstractFOSRestController
      * @param Request $request
      * @param Paginator $paginator
      * @param SerializerInterface $serializer
-     * @return Response
+     * @return array
      */
     public function index(EntityManagerInterface $manager, Request $request, Paginator $paginator, SerializerInterface $serializer)
     {
@@ -59,13 +59,14 @@ class CustomerController extends AbstractFOSRestController
             ["User" => $this->getUser()->getId()]
         );
 
-        return new Response(
-            $serializer->serialize(
-                $data,
-                'json',
-                SerializationContext::create()
-                    ->setGroups(["Default", "items" => ["global", "user" => ["fromCustomer"]] ]))
-        );
+        $serializedData = $serializer->serialize(
+            $data,
+            'json',
+            SerializationContext::create()
+                ->setGroups(["Default", "items" => ["global", "user" => ["fromCustomer"]] ]));
+
+        return $paginator->getPaginatedResponse($serializedData);
+
     }
 
 
