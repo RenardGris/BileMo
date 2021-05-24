@@ -117,6 +117,66 @@ class Customer
      */
     private $User;
 
+    /**
+     * @ORM\Column(type="string", length=15)
+     * @Serializer\Groups({"details"})
+     * @Serializer\Expose
+     * @Assert\NotBlank
+     * @Assert\Length(
+     *      min = 10,
+     *      max = 15,
+     *      minMessage = "Customer phone must be at least {{ limit }} characters long",
+     *      maxMessage = "Customer phone cannot be longer than {{ limit }} characters"
+     * )
+     * @OA\Property(type="string")
+     */
+    private $phone;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     * @Serializer\Groups({"details"})
+     * @Serializer\Expose
+     * @Assert\NotBlank
+     * @Assert\Length(
+     *      min = 5,
+     *      max = 255,
+     *      minMessage = "Customer address must be at least {{ limit }} characters long",
+     *      maxMessage = "Customer address cannot be longer than {{ limit }} characters"
+     * )
+     * @OA\Property(type="string")
+     */
+    private $address;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     * @Serializer\Groups({"details"})
+     * @Serializer\Expose
+     * @Assert\NotBlank
+     * @Assert\Length(
+     *      min = 2,
+     *      max = 255,
+     *      minMessage = "Customer address must be at least {{ limit }} characters long",
+     *      maxMessage = "Customer address cannot be longer than {{ limit }} characters"
+     * )
+     * @OA\Property(type="string")
+     */
+    private $city;
+
+    /**
+     * @ORM\Column(type="string", length=10)
+     * @Serializer\Groups({"details"})
+     * @Serializer\Expose
+     * @Assert\NotBlank
+     * @Assert\Length(
+     *      min = 2,
+     *      max = 10,
+     *      minMessage = "Customer postal code must be at least {{ limit }} characters long",
+     *      maxMessage = "Customer postal code cannot be longer than {{ limit }} characters"
+     * )
+     * @OA\Property(type="string")
+     */
+    private $postalCode;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -166,6 +226,54 @@ class Customer
     public function setUser(?User $User): self
     {
         $this->User = $User;
+
+        return $this;
+    }
+
+    public function getPhone(): ?string
+    {
+        return $this->phone;
+    }
+
+    public function setPhone(string $phone): self
+    {
+        $this->phone = $phone;
+
+        return $this;
+    }
+
+    public function getAddress(): ?string
+    {
+        return $this->address;
+    }
+
+    public function setAddress(string $address): self
+    {
+        $this->address = $address;
+
+        return $this;
+    }
+
+    public function getCity(): ?string
+    {
+        return $this->city;
+    }
+
+    public function setCity(string $city): self
+    {
+        $this->city = $city;
+
+        return $this;
+    }
+
+    public function getPostalCode(): ?string
+    {
+        return $this->postalCode;
+    }
+
+    public function setPostalCode(string $postalCode): self
+    {
+        $this->postalCode = $postalCode;
 
         return $this;
     }
