@@ -1,5 +1,7 @@
 # BileMo project
 
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/d832512f36d9460dba6a8292fb1891e9)](https://app.codacy.com/gh/RenardGris/BileMo?utm_source=github.com&utm_medium=referral&utm_content=RenardGris/BileMo&utm_campaign=Badge_Grade_Settings)
+
 ## Project
 
 ### Presentation
