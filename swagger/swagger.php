@@ -183,6 +183,10 @@ use OpenApi\Annotations as OA;
  *          @OA\Property(property="firstname", type="string"),
  *          @OA\Property(property="lastname", type="string"),
  *          @OA\Property(property="email", type="string"),
+ *          @OA\Property(property="phone", type="string"),
+ *          @OA\Property(property="address", type="string"),
+ *          @OA\Property(property="city", type="string"),
+ *          @OA\Property(property="postal_code", type="string"),
  *     ),
  * ),
  *

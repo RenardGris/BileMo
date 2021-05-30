@@ -189,7 +189,7 @@
             }
         },
         "/api/login": {
-            "put": {
+            "post": {
                 "tags": [
                     "User"
                 ],
@@ -255,6 +255,18 @@
                         "items": {
                             "$ref": "#/components/schemas/userGlobal"
                         }
+                    },
+                    "phone": {
+                        "type": "string"
+                    },
+                    "address": {
+                        "type": "string"
+                    },
+                    "city": {
+                        "type": "string"
+                    },
+                    "postalCode": {
+                        "type": "string"
                     }
                 },
                 "type": "object"
@@ -276,6 +288,19 @@
                     "price": {
                         "type": "number",
                         "format": "double"
+                    },
+                    "color": {
+                        "type": "string"
+                    },
+                    "screenSize": {
+                        "type": "number",
+                        "format": "double"
+                    },
+                    "storage": {
+                        "type": "string"
+                    },
+                    "chargerType": {
+                        "type": "string"
                     }
                 },
                 "type": "object"
@@ -564,6 +589,22 @@
                                     "type": "string"
                                 },
                                 "email": {
+                                    "description": "General information",
+                                    "type": "string"
+                                },
+                                "phone": {
+                                    "description": "General information",
+                                    "type": "string"
+                                },
+                                "address": {
+                                    "description": "General information",
+                                    "type": "string"
+                                },
+                                "city": {
+                                    "description": "General information",
+                                    "type": "string"
+                                },
+                                "postal_code": {
                                     "description": "General information",
                                     "type": "string"
                                 }

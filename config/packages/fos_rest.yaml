@@ -18,6 +18,6 @@ fos_rest:
     debug: false
     serializer_error_renderer: true
     codes:
-      { App\Exception\ResourceValidationException: 400 }
+      { App\Exception\ResourceValidationException: 400, App\Exception\NotFoundException: 404 }
     messages:
-      { App\Exception\ResourceValidationException: true }
+      { App\Exception\ResourceValidationException: true, App\Exception\NotFoundException: true }

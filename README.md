@@ -48,18 +48,29 @@ git clone https://github.com/RenardGris/BileMo.git
 composer install
 ```
 
-3.  Make a copy of .env.default and rename it .env, 
-    next define DATABASE_URL according to yours
+3.  Make a copy of .env.default and rename it .env.
+
+- 3.1 Define the DATABASE_URL according to yours
 ``` 
 # DATABASE_URL="sqlite:///%kernel.project_dir%/var/data.db"
 # DATABASE_URL="mysql://db_user:db_password@127.0.0.1:3306/db_name?serverVersion=mariadb-10.4.10"
 # DATABASE_URL="postgresql://db_user:db_password@127.0.0.1:5432/db_name?serverVersion=13&charset=utf8"
 ```
+- 3.2 Remember to also change the jwt passphrase
+``` 
+JWT_PASSPHRASE=YOURCUSTOMPASSPHRASE
+```
 
-4.  else you can make tables and data with the next symfony cli
+4.  Next, you can run the next command line :
+- 4.1 create database
+``` 
+ php bin/console doctrine:database:create
+```
+- 4.2 create tables
 ``` 
  php bin/console doctrine:migrations:migrate
 ```
+- 4.3 fill tables with fake data
 ``` 
  php bin/console doctrine:fixtures:load
 ```

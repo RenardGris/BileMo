@@ -38,17 +38,18 @@ class Paginator
 
     }
 
-    public function getPagination($repository, string $path, int $page)
+    public function getPaginatedResponse($data)
     {
-        $data = $this->paginate($repository, $path, $page);
-        return [
-            'data' => $data,
-            'meta' => [
-                'page' => $data->getPage(),
-                'pages' => $data->getPages(),
-                'total' => $data->getTotal(),
-            ]
+        $data = json_decode($data, true);
+        $meta= [
+            'page'=>$data['page'],
+            'pages'=>$data['pages'],
+            'limit'=>$data['limit'],
+            'total'=>$data['total'],
+            'links'=>$data['_links'],
         ];
+        $content = $data['_embedded']['items'];
+        return ['meta'=>$meta, 'content' => $content];
     }
 
 }

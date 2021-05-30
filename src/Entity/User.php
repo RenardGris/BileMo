@@ -72,6 +72,19 @@ class User implements UserInterface
      */
     private $customers;
 
+    /**
+     * @ORM\Column(type="string", length=255)
+     * @Serializer\Groups({"details"})
+     * @Serializer\Expose*/
+    private $company;
+
+    /**
+     * @ORM\Column(type="string", length=15)
+     * @Serializer\Groups({"details"})
+     * @Serializer\Expose
+     */
+    private $phone;
+
     public function __construct()
     {
         $this->customers = new ArrayCollection();
@@ -180,5 +193,29 @@ class User implements UserInterface
     public function eraseCredentials()
     {
 
+    }
+
+    public function getCompany(): ?string
+    {
+        return $this->company;
+    }
+
+    public function setCompany(string $company): self
+    {
+        $this->company = $company;
+
+        return $this;
+    }
+
+    public function getPhone(): ?string
+    {
+        return $this->phone;
+    }
+
+    public function setPhone(string $phone): self
+    {
+        $this->phone = $phone;
+
+        return $this;
     }
 }

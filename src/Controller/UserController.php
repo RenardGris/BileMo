@@ -19,7 +19,7 @@ class UserController extends AbstractController
      * @Route("/api/login", name="api_login")
      *
      *
-     * @OA\Put(
+     * @OA\Post(
      *     path="/api/login",
      *     tags={"User"},
      *     @OA\RequestBody(ref="#/components/requestBodies/loginUser"),

@@ -72,6 +72,38 @@ class Product
      */
     private $price;
 
+    /**
+     * @ORM\Column(type="string", length=255)
+     * @Serializer\Groups({"details"})
+     * @Serializer\Expose
+     * @OA\Property(type="string")
+     */
+    private $color;
+
+    /**
+     * @ORM\Column(type="float")
+     * @Serializer\Groups({"details"})
+     * @Serializer\Expose
+     * @OA\Property(type="number", format="double")
+     */
+    private $screenSize;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     * @Serializer\Groups({"details"})
+     * @Serializer\Expose
+     * @OA\Property(type="string")
+     */
+    private $storage;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     * @Serializer\Groups({"details"})
+     * @Serializer\Expose
+     * @OA\Property(type="string")
+     */
+    private $chargerType;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -121,6 +153,54 @@ class Product
     public function setPrice(float $price): self
     {
         $this->price = $price;
+
+        return $this;
+    }
+
+    public function getColor(): ?string
+    {
+        return $this->color;
+    }
+
+    public function setColor(string $Color): self
+    {
+        $this->color = $Color;
+
+        return $this;
+    }
+
+    public function getScreenSize(): ?float
+    {
+        return $this->screenSize;
+    }
+
+    public function setScreenSize(float $screenSize): self
+    {
+        $this->screenSize = $screenSize;
+
+        return $this;
+    }
+
+    public function getStorage(): ?string
+    {
+        return $this->storage;
+    }
+
+    public function setStorage(string $storage): self
+    {
+        $this->storage = $storage;
+
+        return $this;
+    }
+
+    public function getChargerType(): ?string
+    {
+        return $this->chargerType;
+    }
+
+    public function setChargerType(string $chargerType): self
+    {
+        $this->chargerType = $chargerType;
 
         return $this;
     }
